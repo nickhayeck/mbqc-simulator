@@ -7,7 +7,7 @@ import GraphState from './backend.js';
 class Button extends React.Component{
   render(){
     return (<td id={this.props.isSelected ? 'selectedTool':'unselectedTool'} className='toolbarCell' onClick = {(e) => {this.props.handleClick(e)}}>
-            <img src={'mbqc-simulator/icons/icons_'.concat(this.props.id,'.png')} id={this.props.id} alt='' className='buttonImage'/>
+            <img src={process.env.PUBLIC_URL+'/icons/icons_'.concat(this.props.id,'.png')} id={this.props.id} alt='' className='buttonImage'/>
             </td>
            );
   }

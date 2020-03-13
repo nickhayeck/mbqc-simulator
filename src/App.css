@@ -41,8 +41,8 @@
 .titleText{
   text-align: right;
   color: white;
-  font-family: Miso, Verdana, sans-serif;
-  font-size: 3vw;
+  font-family: Raleway, Verdana, sans-serif;
+  font-size: 2vw;
   line-height: 5%;
 }
 #unselectedTool{
@@ -67,6 +67,22 @@
         -ms-user-select: none; /* Internet Explorer/Edge */
             user-select: none; /* Non-prefixed version, currently
                                   supported by Chrome, Opera and Firefox */
+}
+#socialbar{
+  position: fixed;
+  right:1vh;
+  bottom:1vh;
+  background: rgba(0, 0, 0, 1);
+  height: 6vh;
+  width: 12vh;
+  color:white;
+  font-size: 1.75vh;
+  text-align: center;
+  font-family: Raleway,Verdana,sans-serif;
+  border-radius: 1vh;
+}
+a{
+  color:white;
 }
 svg{
   position: fixed;
