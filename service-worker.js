@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/mbqc-simulator/precache-manifest.fdefbd2eefb982852bacd457c3ff8184.js"
+  "/mbqc-simulator/precache-manifest.79818e3e8f9d501840beb6ac4a5a78c4.js"
 );
 
 self.addEventListener('message', (event) => {
