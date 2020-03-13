@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.css": "/mbqc-simulator/static/css/main.3eaccb7f.chunk.css",
+    "main.css": "/mbqc-simulator/static/css/main.456e3ba7.chunk.css",
     "main.js": "/mbqc-simulator/static/js/main.708adec6.chunk.js",
     "main.js.map": "/mbqc-simulator/static/js/main.708adec6.chunk.js.map",
     "runtime-main.js": "/mbqc-simulator/static/js/runtime-main.89913920.js",
@@ -8,15 +8,15 @@
     "static/js/2.c167a9a0.chunk.js": "/mbqc-simulator/static/js/2.c167a9a0.chunk.js",
     "static/js/2.c167a9a0.chunk.js.map": "/mbqc-simulator/static/js/2.c167a9a0.chunk.js.map",
     "index.html": "/mbqc-simulator/index.html",
-    "precache-manifest.46e3453a278c2d3d3e824751df559e8b.js": "/mbqc-simulator/precache-manifest.46e3453a278c2d3d3e824751df559e8b.js",
+    "precache-manifest.2a96544a878a0d093bd4d6f4d4a715f7.js": "/mbqc-simulator/precache-manifest.2a96544a878a0d093bd4d6f4d4a715f7.js",
     "service-worker.js": "/mbqc-simulator/service-worker.js",
-    "static/css/main.3eaccb7f.chunk.css.map": "/mbqc-simulator/static/css/main.3eaccb7f.chunk.css.map",
+    "static/css/main.456e3ba7.chunk.css.map": "/mbqc-simulator/static/css/main.456e3ba7.chunk.css.map",
     "static/js/2.c167a9a0.chunk.js.LICENSE.txt": "/mbqc-simulator/static/js/2.c167a9a0.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.89913920.js",
     "static/js/2.c167a9a0.chunk.js",
-    "static/css/main.3eaccb7f.chunk.css",
+    "static/css/main.456e3ba7.chunk.css",
     "static/js/main.708adec6.chunk.js"
   ]
 }
