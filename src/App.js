@@ -7,7 +7,7 @@ import GraphState from './backend.js';
 class Button extends React.Component{
   render(){
     return (<td id={this.props.isSelected ? 'selectedTool':'unselectedTool'} className='toolbarCell' onClick = {(e) => {this.props.handleClick(e)}}>
-            <img src={'icons/icons_'.concat(this.props.id,'.png')} id={this.props.id} alt='' className='buttonImage'/>
+            <img src={'mbqc-simulator/icons/icons_'.concat(this.props.id,'.png')} id={this.props.id} alt='' className='buttonImage'/>
             </td>
            );
   }
@@ -15,7 +15,6 @@ class Button extends React.Component{
 
 
 class FloatingToolBar extends React.Component{
-
   render(){
 
 
@@ -75,7 +74,8 @@ class Particle extends React.Component{
       position: 'fixed',
       top: '0vh',
       left: '0vw',
-      border: '1vh solid #000'
+      border: '1vh solid #000',
+      zIndex: '10000'
       };
     const textStyle = {
       textAlign: 'center',
@@ -128,10 +128,12 @@ class ParticleCanvas extends React.Component{
       graph : g,
       edges : g.edges(),
       mxhelper: [undefined, false],
-      edgehelper: [undefined,false]
+      edgehelper: [undefined,false],
+      extraParticles:[]
     };
     this.particleClickHandler = this.particleClickHandler.bind(this)
     this.onUpdate = this.onUpdate.bind(this)
+    this.newParticleCreator = this.newParticleCreator.bind(this)
   }
 
   onUpdate(latest,id){
@@ -165,7 +167,6 @@ class ParticleCanvas extends React.Component{
       let g = this.state.graph;
       g.measureZ(id);
       this.setState({graph:g, edges:g.edges()});
-
     }
 
     //Y-axis measurement
@@ -184,7 +185,7 @@ class ParticleCanvas extends React.Component{
     else if (this.props.selectedTool === 'mx' && this.state.mxhelper[1]){
       console.log('measurement in x direction initiated with special neighbor #'+id);
       let g = this.state.graph;
-      g.measureX(this.state.mxhelper[0],id);
+      g.measureX(id,this.state.mxhelper[0]);
       this.setState({graph:g, edges:g.edges()});
       this.setState({mxhelper:[undefined,false]});
     }
@@ -203,12 +204,33 @@ class ParticleCanvas extends React.Component{
     }
   }
 
+  newParticleCreator(event){
+
+    if(this.props.selectedTool === 'newParticle'){
+      let g = this.state.graph;
+      g.newParticle();
+
+      let particleInfo = {
+        number : g.getAdjacencyMatrix().length,
+        initialX : "calc("+ event.clientX + "px - 6vh)",
+        initialY : "calc("+ event.clientY + "px - 6vh)",
+        particleBox : this.props.container,
+        draggable : this.props.canDrag,
+        onUpdate : this.onUpdate
+      };
+      let theNewParticle = <Particle info = {particleInfo} key = {particleInfo.number.toString()} clickHandler = {this.particleClickHandler}/>;
+
+      this.setState({extraParticles:this.state.extraParticles.concat(theNewParticle)})
+      this.setState({graph:g, edges:g.edges()});
+    }
+  }
+
   render(){
 
-    console.time('Render Loop Completed')
+    //console.time('Render Loop Completed')
     let particlesToRender = [];
     let edgesToRender = [];
-    let max = this.state.graph.getAdjacencyMatrix().length;
+    let max = this.state.graph.getAdjacencyMatrix().length
 
     for (let i = 0; i < max; i++){
       let column = i*150+300;
@@ -223,7 +245,6 @@ class ParticleCanvas extends React.Component{
       };
       particlesToRender.push(<Particle info = {particleInfo} key = {particleInfo.number.toString()} clickHandler = {this.particleClickHandler}/>);
     }
-    //console.log(this.state.edges)
     for(let node of this.state.edges){
       //console.log((this.state.positionTable[node[0]] !== undefined) ? this.state.positionTable[node[0]].x : "aaabbbccc")
       let table = this.state.positionTable;
@@ -232,9 +253,9 @@ class ParticleCanvas extends React.Component{
       }
     }
 
-    console.timeEnd("Render Loop Completed")
+    //console.timeEnd("Render Loop Completed")
     return(
-      <div onClick={this.newParticle}>
+      <div className="particlecanvas" onClick={this.newParticleCreator}>
 
         {particlesToRender}
         <svg>
@@ -267,9 +288,9 @@ class Page extends React.Component{
     super(props);
     this.page = React.createRef();
     this.state = {selectedTool    : 'newParticle',
-                  adjacencyMatrix : [[0,1,1,0,1],
+                  adjacencyMatrix : [[0,1,0,0,1],
                                      [1,0,1,0,0],
-                                     [1,1,0,1,0],
+                                     [0,1,0,1,0],
                                      [0,0,1,0,1],
                                      [1,0,0,1,0]]}
     this.toolbarClickHandler = this.toolbarClickHandler.bind(this);

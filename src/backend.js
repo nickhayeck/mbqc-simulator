@@ -7,7 +7,7 @@ export default class GraphState{
   neighbors(a){
     var out = []
     for(let i = 0; i < this.numVerticies; i++){
-      if (this.adjacencyMatrix.valueOf()[a][i] == 1){
+      if (this.adjacencyMatrix.valueOf()[a][i] === 1){
         out = out.concat(i);
       }
     }
@@ -18,7 +18,7 @@ export default class GraphState{
     var out = []
     for(let i = 0; i < this.numVerticies; i++){
       for (let j = i; j < this.numVerticies; j++){
-        if (math.subset(this.adjacencyMatrix,math.index(i,j)) == 1){
+        if (math.subset(this.adjacencyMatrix,math.index(i,j)) === 1){
           out=out.concat( [[i,j]] );
         }
       }
@@ -27,13 +27,13 @@ export default class GraphState{
   }
 
   oneQubitUnitary(matrix, a){
-    var gate = (a == 0) ? matrix : [[1,0],[0,1]]
+    var gate = (a === 0) ? matrix : [[1,0],[0,1]]
 
     //Prepares the tensor product of the unitary with a series of identity matricies such that (if applying to the k-th qubit of n qubits)
     //the state is prepared as I₁ ⊗ I₂ ⊗ ... ⊗ Uₖ ⊗ Iₖ₊₁ ⊗ Iₖ₊₂ ⊗ ...
 
     for (let i = 1; i < this.numVerticies; i++){
-      if(i == a){
+      if(i === a){
         gate = math.kron(gate,matrix)
       }else{
         gate = math.kron(gate,[[1,0],[0,1]])
@@ -53,15 +53,15 @@ export default class GraphState{
 
     var gateP1 = (a == 0 ? p0 : identityMatrix);
     for (let n = 1; n < this.numVerticies; n++){
-      gateP1 = (a == n ? math.kron(gateP1, p0) : math.kron(gateP1,identityMatrix));
+      gateP1 = (a === n ? math.kron(gateP1, p0) : math.kron(gateP1,identityMatrix));
     }
 
-    let gateP2 = (a == 0 ? p1 : identityMatrix);
+    let gateP2 = (a === 0 ? p1 : identityMatrix);
 
     for (let n = 1; n < this.numVerticies; n++){
-      if(a == n){
+      if(a === n){
       gateP2 = math.kron(gateP2, p1);
-      } else if(b == n) {
+      } else if(b === n) {
       gateP2 = math.kron(gateP2, pauliZ);
       } else {
       gateP2 = math.kron(gateP2, identityMatrix);
@@ -92,10 +92,10 @@ export default class GraphState{
     //
     // for (let i = 0; i < this.state.size()){
     //   let index = i.toString(2);
-    //   if(parseInt(index[a],10) == 1 ){
+    //   if(parseInt(index[a],10) === 1 ){
     //     probabilityOne = math.add(probabilityOne,this.state.subset(math.index(i,0)));
     //   }
-    //   if( parseInt(index[a],10) == 0 ){
+    //   if( parseInt(index[a],10) === 0 ){
     //     probabilityZero = math.add(probabilityZero,this.state.subset(math.index(i,0)));
     //   }
     // }
@@ -103,7 +103,7 @@ export default class GraphState{
     // probabilityZero = math.multiply(probabilityZero.conjugate(),probabilityZero).re;
     //
     // let choice = weightedRandom({0:probabilityZero , 1:probabilityOne});
-    // let aState = (choice == 1) ? math.matrix([[0],[1]]) : math.matrix([[1],[0]]);
+    // let aState = (choice === 1) ? math.matrix([[0],[1]]) : math.matrix([[1],[0]]);
     let adj = this.adjacencyMatrix.valueOf()
     for(let n of this.neighbors(a)){
       adj[a][n] = 0;
@@ -138,7 +138,7 @@ export default class GraphState{
     function isIn (set,element){
       //checks if an array (called element) is contained in an array of arrays (called set)
       for(let i of set){
-        if(i.length == element.length){
+        if(i.length === element.length){
           for(let j = 0; j < i.length; j++){
             if (i[j] != element[j]) break;
             if (j == i.length-1 && i[j] == element[j]) return true;
@@ -167,11 +167,10 @@ export default class GraphState{
 
 
     let intersectb0a = this.neighbors(a).filter(x => this.neighbors(b0).includes(x)) // intersection of the neighbors of a and b0
-    let up = [... new Set([...this.neighbors(a),...this.neighbors(b0)])] //the union of neighbors of a and b0, to make the bigE calculation smoother
+    let up = [...new Set([...this.neighbors(a),...this.neighbors(b0)])] //the union of neighbors of a and b0, to make the bigE calculation smoother
     let totalEdge = innerArrayReverser(this.edges()) //edges and their reverses
 
     var finalEdges = delta( delta( delta(totalEdge , bigE(up,up)) , bigE(intersectb0a,intersectb0a)) , bigE(this.neighbors(a),this.neighbors(a)))
-    console.log('finalEdges',finalEdges)
 
     let adj = this.adjacencyMatrix.valueOf()
 
@@ -191,9 +190,20 @@ export default class GraphState{
 
   }
 
+  newParticle(){
+    //// WARNING: THIS FUNCTION DOESNT UPDATE THE STATE VECTOR YET!!
+    let adj = this.adjacencyMatrix.valueOf()
+    for(let i=0; i<adj.length; i++){
+      adj[i] = adj[i].concat(0);
+    }
+    adj = adj.concat([[0]])
+    for(let i=0; i<adj.length-1; i++) adj[adj.length-1]=adj[adj.length-1].concat(0);
+    this.adjacencyMatrix = math.matrix(adj)
+    this.numVerticies += 1;
+
+  }
+  
   newEdge(a,b){
-
-
     let adj = this.adjacencyMatrix.valueOf()
     if(adj[a][b] === 1 || adj[b][a] === 1) console.warn('There already exists an edge there! ('+a+','+b+') is already in the list of edges');
     adj[a][b] = 1;
