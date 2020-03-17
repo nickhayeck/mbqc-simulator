@@ -4,6 +4,6 @@ import App from './App';
 
 test('renders learn react link', () => {
   const { getByText } = render(<App />);
-  const linkElement = getByText(/Cluster State Simulator/p);
+  const linkElement = getByText(/Cluster State Simulator/i);
   expect(linkElement).toBeInTheDocument();
 });
