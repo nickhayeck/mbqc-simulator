@@ -1,10 +1,10 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "0eac91ec4d7435c73919772406ee0d46",
+    "revision": "44711f77c0558d4780b49adbe8eab468",
     "url": "/mbqc-simulator/index.html"
   },
   {
-    "revision": "c68341e44cff29893ae8",
+    "revision": "e4d30e358299934c4920",
     "url": "/mbqc-simulator/static/css/main.fcab3dbe.chunk.css"
   },
   {
@@ -16,8 +16,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/mbqc-simulator/static/js/2.e1a54196.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "c68341e44cff29893ae8",
-    "url": "/mbqc-simulator/static/js/main.95819f92.chunk.js"
+    "revision": "e4d30e358299934c4920",
+    "url": "/mbqc-simulator/static/js/main.ac20e0c6.chunk.js"
   },
   {
     "revision": "9ab7273f9ed90c866912",
