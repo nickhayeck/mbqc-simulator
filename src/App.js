@@ -109,8 +109,7 @@ class Edge extends React.Component{
     let v1 = this.props.firstVertex;
     let v2 = this.props.secondVertex;
 
-    return <motion.line transition = {{duration:2}}
-                 x1={"calc("+ v1.x + "px + 6vh)"}
+    return <line x1={"calc("+ v1.x + "px + 6vh)"}
                  y1={"calc("+ v1.y + "px + 6vh)"}
                  x2={"calc("+ v2.x + "px + 6vh)"}
                  y2={"calc("+ v2.y + "px + 6vh)"} />;
