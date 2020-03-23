@@ -8,7 +8,7 @@
 
 }
 .buttonImage{
-  width: auto;
+  width: 100%;
   height:auto;
 }
 .toolbarTable{
@@ -32,11 +32,9 @@
   z-index: -1;
 }
 
-.toolbar_cell{
-  padding-left: auto;
-  padding-right: auto;
-  width: auto;
-  height: auto;
+.toolbarCell{
+  padding-left: 3vh;
+
 }
 .titleText{
   text-align: right;
