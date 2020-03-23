@@ -108,16 +108,17 @@ class Edge extends React.Component{
     //make the code less messy
     let v1 = this.props.firstVertex;
     let v2 = this.props.secondVertex;
+    let coordMod = window.innerHeight*.06;
 
     // return <line x1={"calc("+ v1.x + "px + 6vh)"}
     //              y1={"calc("+ v1.y + "px + 6vh)"}
     //              x2={"calc("+ v2.x + "px + 6vh)"}
     //              y2={"calc("+ v2.y + "px + 6vh)"} />;
     const isChrome = !!window.chrome && (!!window.chrome.webstore || !!window.chrome.runtime);
-    return <line x1={v1.x}
-                 y1={v1.y}
-                 x2={v2.x}
-                 y2={v2.y} />;
+    return <line x1={v1.x + coordMod}
+                 y1={v1.y + coordMod}
+                 x2={v2.x + coordMod}
+                 y2={v2.y + coordMod} />;
 
   }
 }
